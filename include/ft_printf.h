@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 21:23:10 by scristia      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:28:04 by scristia      ########   odam.nl         */
+/*   Updated: 2022/05/21 20:58:38 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	check_prec_width(long *i, unsigned long long n, t_spec *base, int len);
 
 void	ft_flag_pad(long write, t_spec *base, size_t *bytes, size_t is_neg);
 
-size_t	ft_strlen(char *str);
+size_t	ft_strlen(const char *str);
 
 void	ft_putnbr(unsigned int n);
 
