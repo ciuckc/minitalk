@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/21 19:18:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/05/31 19:53:04 by scristia      ########   odam.nl         */
+/*   Updated: 2022/06/01 14:59:15 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static size_t	input_is_invalid(int argc, char **argv)
 static void	ack_sig(int signum)
 {
 	if (signum == SIGUSR1)
+	{
 		write(1, "Server done printing!", 21);
+		exit(0);
+	}
 }
 
 static void	send_char(u_int8_t c, u_int32_t srv_pid)
@@ -34,14 +37,14 @@ static void	send_char(u_int8_t c, u_int32_t srv_pid)
 	u_int8_t			bit;
 
 	wait_srv_response.sa_handler = ack_sig;
-	bits_to_send = 7;
+	bits_to_send = 8;
 	bit = 0;
 	while (bits_to_send > 0)
 	{
 		bit = c & 1;
 		c >>= 1;
 		bits_to_send--;
-		kill(srv_pid, SIGUSR1 * (bit == 1) + SIGUSR2 * (bit == 0));
+		kill(srv_pid, SIGUSR1 * (bit & 1) + SIGUSR2 * (~(bit & 1) & 1));
 		sigaction(SIGUSR2, &wait_srv_response, NULL);
 		pause();
 	}
@@ -50,14 +53,13 @@ static void	send_char(u_int8_t c, u_int32_t srv_pid)
 int	main(int argc, char **argv)
 {
 	u_int32_t			srv_pid;
-	struct sigaction	srv_finished;
+	struct sigaction	srv_response;
 
 	if (input_is_invalid(argc, argv))
 		return (0);
 	srv_pid = ft_atoi(*(argv + 1));
-	srv_finished.sa_handler = ack_sig;
-	sigaction(SIGUSR1, &srv_finished, NULL);
-	sigaction(SIGUSR2, &srv_finished, NULL);
+	srv_response.sa_handler = ack_sig;
+	sigaction(SIGUSR1, &srv_response, NULL);
 	while (**(argv + 2))
 	{
 		send_char(**(argv + 2), srv_pid);
