@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/21 19:18:47 by scristia      #+#    #+#                 */
-/*   Updated: 2022/06/01 14:59:15 by scristia      ########   odam.nl         */
+/*   Updated: 2022/06/02 15:19:15 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,23 @@ static void	ack_sig(int signum)
 
 static void	send_char(u_int8_t c, u_int32_t srv_pid)
 {
-	struct sigaction	wait_srv_response;
 	u_int8_t			bits_to_send;
 	u_int8_t			bit;
+	u_int8_t			sig[2];
 
-	wait_srv_response.sa_handler = ack_sig;
 	bits_to_send = 8;
 	bit = 0;
-	while (bits_to_send > 0)
+	sig[0] = SIGUSR2;
+	sig[1] = SIGUSR1;
+	while (1)
 	{
 		bit = c & 1;
 		c >>= 1;
 		bits_to_send--;
-		kill(srv_pid, SIGUSR1 * (bit & 1) + SIGUSR2 * (~(bit & 1) & 1));
-		sigaction(SIGUSR2, &wait_srv_response, NULL);
+		kill(srv_pid, sig[bit]);
 		pause();
+		if (bits_to_send == 0)
+			return ;
 	}
 }
 
@@ -60,11 +62,11 @@ int	main(int argc, char **argv)
 	srv_pid = ft_atoi(*(argv + 1));
 	srv_response.sa_handler = ack_sig;
 	sigaction(SIGUSR1, &srv_response, NULL);
+	sigaction(SIGUSR2, &srv_response, NULL);
 	while (**(argv + 2))
 	{
 		send_char(**(argv + 2), srv_pid);
 		(*(argv + 2))++;
 	}
 	send_char('\0', srv_pid);
-	pause();
 }
