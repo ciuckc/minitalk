@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/17 17:10:02 by scristia      #+#    #+#                 */
-/*   Updated: 2021/12/17 17:10:03 by scristia      ########   odam.nl         */
+/*   Updated: 2022/06/03 19:11:35 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dstsize)
 	i = 0;
 	if (dstsize == 0)
 		return (len_s);
-	while (i < dstsize - 1 && s1[i] != 0 )
+	while (i < dstsize - 1 && s1[i] != 0)
 	{
 		d1[i] = s1[i];
 		i++;
