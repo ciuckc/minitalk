@@ -1,0 +1,14 @@
+Benchmark 100 char:
+
+-With buffer of 1024 -> Server done printing!./client 10611 $(cat text100.txt)  0.00s user 0.00s system 59% cpu 0.012 total
+
+
+Benchmark 1000 char:
+
+-With buffer of 1024 -> Server done printing!./client 10611 $(cat text1000.txt)  0.01s user 0.03s system 60% cpu 0.076 total
+
+
+Benchmark 5000 char:
+
+-With buffer of 256 -> Server done printing!./client 8494 $(cat text.txt)  0.05s user 0.16s system 61% cpu 0.341 total
+-with buffer of 1024 -> Server done printing!./client 10611 $(cat text.txt)  0.06s user 0.17s system 58% cpu 0.382 total
