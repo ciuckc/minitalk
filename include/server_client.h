@@ -6,12 +6,12 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/21 16:52:43 by scristia      #+#    #+#                 */
-/*   Updated: 2022/06/03 02:08:39 by scristia      ########   odam.nl         */
+/*   Updated: 2022/06/03 18:08:36 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERVER_H
-# define SERVER_H
+#ifndef SERVER_CLIENT_H
+# define SERVER_CLIENT_H
 
 # include "ft_printf.h"
 # include "libft.h"
