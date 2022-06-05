@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/21 15:59:43 by scristia      #+#    #+#                 */
-/*   Updated: 2022/06/05 15:03:08 by scristia      ########   odam.nl         */
+/*   Updated: 2022/06/05 17:43:47 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,34 @@
 
 t_srv_data	g_srv_data;
 
+static void	write_and_flush(size_t len)
+{
+	write(1, g_srv_data.buffer, len);
+	ft_memset(g_srv_data.buffer, '\0', len);
+}
+
 static size_t	write_if_null_or_full(size_t *index)
 {
+	u_int8_t	c_cpy;
+
+	c_cpy = '\0';
 	if (g_srv_data.buffer[*index] == '\0')
 	{
-		write(1, g_srv_data.buffer, *index);
-		ft_memset(g_srv_data.buffer, '\0', *index);
+		write_and_flush(*index);
 		*index = 0;
 		return (1);
 	}
-	if (*index == BUFFER_SIZE - 1)
+	if (g_srv_data.buffer[*index] > 127 && *index >= BUFFER_SIZE - 4)
 	{
-		write(1, g_srv_data.buffer, BUFFER_SIZE);
-		ft_memset(g_srv_data.buffer, '\0', BUFFER_SIZE);
+		c_cpy = g_srv_data.buffer[*index];
+		g_srv_data.buffer[*index] = 0;
+		write_and_flush(*index);
+		*index = 0;
+		g_srv_data.buffer[*index] = c_cpy;
+	}
+	else if (*index == BUFFER_SIZE - 1)
+	{
+		write_and_flush(BUFFER_SIZE);
 		*index = 0;
 	}
 	return (0);

@@ -32,9 +32,9 @@ INC = include
 
 FLAGS = -Wall -Wextra -Werror
 
-all: mkdir $(LIBS) $(NAME_SRV) $(NAME_CLT)
+all: $(DIR_OBJ) $(LIBS) $(NAME_SRV) $(NAME_CLT)
 
-mkdir: $(DIR_OBJ)
+$(DIR_OBJ):
 	mkdir -p $(DIR_OBJ)
 
 $(NAME_CLT): $(CLT_OBJ)
@@ -58,7 +58,7 @@ $(NAME_LIBFT):
 clean:
 	$(MAKE) clean -C $(DIR_PRINTF)
 	$(MAKE) clean -C $(DIR_LIBFT)
-	$(RM) $(SRV_OBJ) $(CLT_OBJ)
+	$(RM) -r $(DIR_OBJ)
 
 fclean: clean
 	$(RM) -r $(LIBS)

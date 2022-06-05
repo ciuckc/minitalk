@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/21 16:52:43 by scristia      #+#    #+#                 */
-/*   Updated: 2022/06/05 15:01:55 by scristia      ########   odam.nl         */
+/*   Updated: 2022/06/05 17:41:21 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 typedef struct s_srv_data
 {
-	pid_t	clt_pid;
-	char	buffer[BUFFER_SIZE];
+	pid_t		clt_pid;
+	u_int8_t	buffer[BUFFER_SIZE];
 }	t_srv_data;
 
 typedef struct s_clt_data
