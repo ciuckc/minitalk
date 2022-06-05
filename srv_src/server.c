@@ -6,7 +6,7 @@
 /*   By: scristia <scristia@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/21 15:59:43 by scristia      #+#    #+#                 */
-/*   Updated: 2022/06/03 18:13:28 by scristia      ########   odam.nl         */
+/*   Updated: 2022/06/05 15:03:08 by scristia      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(void)
 	sig_act.sa_flags = SA_SIGINFO;
 	sigemptyset(&sig_act.sa_mask);
 	sigaddset(&sig_act.sa_mask, SIGUSR1);
-	sigaddset(&sig_act.sa_mask, SIGUSR1);
+	sigaddset(&sig_act.sa_mask, SIGUSR2);
 	sig_act.sa_sigaction = build_char;
 	sigaction (SIGUSR1, &sig_act, NULL);
 	sigaction (SIGUSR2, &sig_act, NULL);

@@ -32,7 +32,10 @@ INC = include
 
 FLAGS = -Wall -Wextra -Werror
 
-all: $(LIBS) $(NAME_SRV) $(NAME_CLT)
+all: mkdir $(LIBS) $(NAME_SRV) $(NAME_CLT)
+
+mkdir: $(DIR_OBJ)
+	mkdir -p $(DIR_OBJ)
 
 $(NAME_CLT): $(CLT_OBJ)
 	$(CC) $(FLAGS) -I$(INC) $(LIBS) $(CLT_OBJ) -o $(NAME_CLT)
